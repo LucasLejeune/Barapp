@@ -22,7 +22,7 @@ public class CocktailCategoriesServiceImpl implements CocktailCategoriesService 
     @Autowired
     private CocktailRepository cocktailRepository;
     @Autowired
-    private CocktailCategoriesRepository cardCocktailRepository;
+    private CocktailCategoriesRepository cocktailCategoriesRepository;
 
 
     @Override
@@ -33,22 +33,22 @@ public class CocktailCategoriesServiceImpl implements CocktailCategoriesService 
         cocktailCategories.setId(0);
         cocktailCategories.setCategory_id(category);
         cocktailCategories.setCocktail_id(cocktail);
-        return cardCocktailRepository.save(cocktailCategories);
+        return cocktailCategoriesRepository.save(cocktailCategories);
     }
 
     @Override
     public CocktailCategories getCocktailCategories(int id) {
-        return cardCocktailRepository.findById(id).orElse(null);
+        return cocktailCategoriesRepository.findById(id).orElse(null);
     }
 
     @Override
     public CocktailCategories updateCocktailCategories(CocktailCategories cocktailCategories) {
-        return cardCocktailRepository.save(cocktailCategories);
+        return cocktailCategoriesRepository.save(cocktailCategories);
     }
 
     @Override
     public List<CocktailCategories> getAllCocktailCategories() {
-        return cardCocktailRepository.findAll();
+        return cocktailCategoriesRepository.findAll();
     }
     
 }

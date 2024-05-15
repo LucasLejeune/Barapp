@@ -15,9 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.barapp.LucasLejeune.model.Cocktail;
 import com.barapp.LucasLejeune.model.Command;
-import com.barapp.LucasLejeune.service.CommandService;
 import com.barapp.LucasLejeune.service.CommandService;
 
 @RestController
