@@ -14,11 +14,13 @@ import jakarta.persistence.OneToMany;
 public class Card {
     @Id
     private int id;
+
     @ManyToOne
     @JoinColumn(name = "barmaker_id")
     private Barmaker barmaker_id;
+    
     @OneToMany(mappedBy = "card_id", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Table> tables;
+    private List<ClientTable> tables;
     
     public int getId() {
         return id;

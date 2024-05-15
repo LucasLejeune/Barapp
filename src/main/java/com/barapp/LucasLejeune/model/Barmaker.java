@@ -12,8 +12,11 @@ import jakarta.persistence.OneToMany;
 public class Barmaker {
     @Id
     private Integer id;
+
     private String name;
+
     private String password;
+
     @OneToMany(mappedBy = "barmaker_id", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Card> cards;
     
