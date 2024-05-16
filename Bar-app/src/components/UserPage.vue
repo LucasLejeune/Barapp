@@ -2,7 +2,7 @@
     <h1>La carte</h1>
     <li v-for="cocktail in card_cocktails" :key="cocktail.id">
       {{ cocktail.cocktail_id.name + '(' + cocktail.cocktail_size + ')' + ' - ' + cocktail.cocktail_price + '€'}} 
-      <button @click="sendToCommand(cocktail.cocktail_id.id, cocktail.cocktail_size)" class="btn btn-link">Ajouter à la commande</button>
+      <button v-if="pending_command.status === 'En attente'" @click="sendToCommand(cocktail.cocktail_id.id, cocktail.cocktail_size)" class="btn btn-link">Ajouter à la commande</button>
     </li>
 
     <h1>Ma commande</h1>
@@ -29,6 +29,7 @@ export default {
     };
   },
   async created() {
+    document.title = "Passer commande";
     const responseTable = await axios.get('http://localhost:8080/tables/' + this.$route.query.table);
     this.table = responseTable.data;
     this.card_id = this.table.card.id;
@@ -36,7 +37,7 @@ export default {
     this.card_cocktails = responseCardCocktails.data;
     const responseCommand = await axios.get('http://localhost:8080/commands');
     this.commands = responseCommand.data;
-    this.pending_command = this.commands.filter(command => command.table.id === this.table.id && (command.status === "En attente" || command.status === "En préparation"))[0]
+    this.pending_command = this.commands.filter(command => command.table.id === this.table.id && (command.status === "En attente" || command.status === "En préparation"))
     if (this.pending_command.length === 0) {
       const apiUrl = 'http://localhost:8080/commands';
 
@@ -54,6 +55,7 @@ export default {
         console.error(error.response.data);
       });
     }
+    this.pending_command = this.pending_command[0]
     const responseCommandCocktails = await axios.get('http://localhost:8080/commandCocktail');
     this.command_cocktails = responseCommandCocktails.data;
     this.pending_command_cocktails = this.command_cocktails.filter(command_cocktail => command_cocktail.command_id.id === this.pending_command.id)
@@ -76,6 +78,7 @@ export default {
       .catch(error => {
         console.error(error.response.data);
       });
+      location.reload();
     },
     submitCommand() {
       const apiUrl = 'http://localhost:8080/commands/' + this.pending_command.id;
@@ -91,6 +94,7 @@ export default {
       .catch(error => {
         console.error(error.response.data);
       });
+      location.reload();
     }
   }
 };

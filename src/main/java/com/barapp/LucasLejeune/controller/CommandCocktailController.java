@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.barapp.LucasLejeune.model.Command;
 import com.barapp.LucasLejeune.model.CommandCocktail;
 import com.barapp.LucasLejeune.service.CommandCocktailService;
 
@@ -52,6 +54,27 @@ public class CommandCocktailController {
         }
         CommandCocktail updatedCard = commandCocktailService.updateCommandCocktail(card);
         return new ResponseEntity<>(updatedCard, HttpStatus.OK);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<CommandCocktail> patchCocktail(@PathVariable int id, @RequestBody CommandCocktail patch) {
+        CommandCocktail commandCocktail = commandCocktailService.getCommandCocktail(id);
+
+        if (patch.getCocktail_id() != null) {
+            commandCocktail.setCocktail_id(patch.getCocktail_id());
+        }
+        if (patch.getCommand_id() != null) {
+            commandCocktail.setCommand_id(patch.getCommand_id());
+        }
+        if (patch.getStatus() != null) {
+            commandCocktail.setStatus(patch.getStatus());
+        }
+        if (patch.getCocktail_size() != null) {
+            commandCocktail.setCocktail_size(patch.getCocktail_size());
+        }
+
+        CommandCocktail updatedcommandCocktail = commandCocktailService.updateCommandCocktail(commandCocktail);
+        return ResponseEntity.ok(updatedcommandCocktail);
     }
 }
 

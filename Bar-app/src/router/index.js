@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import UserPage from '../components/UserPage.vue'
+import PendingCommands from '../components/PendingCommands.vue'
 
 
 const router = createRouter({
@@ -7,7 +8,13 @@ const router = createRouter({
     routes: [
         {
             path: '/',
+            name: 'Passer commande',
             component: UserPage
+        },
+        {
+            path: '/commands',
+            name: "Commandes",
+            component: PendingCommands
         }
     ]
 })
