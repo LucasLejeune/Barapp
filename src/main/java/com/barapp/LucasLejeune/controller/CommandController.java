@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,11 +21,13 @@ import com.barapp.LucasLejeune.service.CommandService;
 
 @RestController
 @RequestMapping("/commands")
+@CrossOrigin(origins = "http://localhost:5173", allowedHeaders = {"Content-Type"})
 public class CommandController {
     @Autowired
     private CommandService commandService;
     
-    @PostMapping("/{cardId}")
+    @PostMapping
+    @CrossOrigin(origins = "http://localhost:5173")
     public ResponseEntity<Command> createCommand(@RequestBody CommandRequest commandRequest) {
         Command createdCommand = commandService.createCommand(commandRequest.getTableId(), commandRequest.getSentAt(), commandRequest.getStatus());
         return new ResponseEntity<>(createdCommand, HttpStatus.CREATED);

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,13 +19,14 @@ import com.barapp.LucasLejeune.service.CommandCocktailService;
 
 @RestController
 @RequestMapping("/commandCocktail")
+@CrossOrigin(origins = "http://localhost:5173")
 public class CommandCocktailController {
     @Autowired
     private CommandCocktailService commandCocktailService;
     
     @PostMapping
     public ResponseEntity<CommandCocktail> createCard(@RequestBody CommandCocktailRequest commandCocktailRequest) {
-        CommandCocktail createdCommandCocktail = commandCocktailService.createCommandCocktail(commandCocktailRequest.getCommand_id(), commandCocktailRequest.getCocktail_id(), commandCocktailRequest.getStatus());
+        CommandCocktail createdCommandCocktail = commandCocktailService.createCommandCocktail(commandCocktailRequest.getCommand_id(), commandCocktailRequest.getCocktail_id(), commandCocktailRequest.getStatus(), commandCocktailRequest.getCocktail_size());
         return new ResponseEntity<>(createdCommandCocktail, HttpStatus.CREATED);
     }
     
@@ -57,6 +59,7 @@ class CommandCocktailRequest {
     private int command_id;
     private int cocktail_id;
     private String status;
+    private String cocktail_size;
 
     public int getCocktail_id() {
         return cocktail_id;
@@ -75,6 +78,12 @@ class CommandCocktailRequest {
     }
     public void setCommand_id(int command_id) {
         this.command_id = command_id;
+    }
+    public String getCocktail_size() {
+        return cocktail_size;
+    }
+    public void setCocktail_size(String cocktail_size) {
+        this.cocktail_size = cocktail_size;
     }
 
     

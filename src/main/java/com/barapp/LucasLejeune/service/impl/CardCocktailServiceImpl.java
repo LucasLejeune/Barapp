@@ -51,6 +51,5 @@ public class CardCocktailServiceImpl implements CardCocktailService {
     @Override
     public List<CardCocktail> getCardCocktails() {
         return cardCocktailRepository.findAll();
-    }
-    
+    }    
 }

@@ -26,7 +26,7 @@ public class CommandCocktailServiceImpl implements CommandCocktailService{
 
 
     @Override
-    public CommandCocktail createCommandCocktail(int command_id, int cocktail_id, String status) {
+    public CommandCocktail createCommandCocktail(int command_id, int cocktail_id, String status, String cocktail_size) {
         Command command = commandRepository.findById(command_id).orElseThrow(() -> new EntityNotFoundException("Command not found"));
         Cocktail cocktail = cocktailRepository.findById(cocktail_id).orElseThrow(() -> new EntityNotFoundException("Cocktail not found"));
         CommandCocktail commandCocktail = new CommandCocktail();
@@ -34,6 +34,7 @@ public class CommandCocktailServiceImpl implements CommandCocktailService{
         commandCocktail.setCommand_id(command);
         commandCocktail.setCocktail_id(cocktail);
         commandCocktail.setStatus(status);
+        commandCocktail.setCocktail_size(cocktail_size);
         return commandCocktailRepository.save(commandCocktail);
     }
 

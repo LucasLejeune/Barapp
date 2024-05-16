@@ -12,6 +12,7 @@ public class CommandCocktail {
     @Id
     private int id;
     private String status;
+    private String cocktail_size;
     
     @ManyToOne
     @JoinColumn(name = "command_id")
@@ -52,5 +53,13 @@ public class CommandCocktail {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getCocktail_size() {
+        return cocktail_size;
+    }
+
+    public void setCocktail_size(String cocktail_size) {
+        this.cocktail_size = cocktail_size;
     }
 }
